@@ -13,20 +13,20 @@ const MainPage = (props) => {
         setEditable(vals);
     }
 
-    const [items,setItems]=useState([]);
-    var l = []
-    const fun = async() => {
-        await readClubData((data)=>{
-            for(const key in data){
-                l.push(data[key]);
-                // setItems(l);
-                console.log(data[key]);
-            }
-        });
-    };
-    fun();
-    console.log(items);
-    
+    // const [items,setItems]=useState([]);
+    // var l = []
+    // const fun = async() => {
+    //     await readClubData((data)=>{
+    //         for(const key in data){
+    //             l.push(data[key]);
+    //             // setItems(l);
+    //             console.log(data[key]);
+    //         }
+    //     });
+    // };
+    // fun();
+    // console.log(items);
+
     return <View style={Styles.view}>
         <View style={Styles.view1}>
             <TouchableOpacity style={Styles.button}>
@@ -44,7 +44,11 @@ const MainPage = (props) => {
         }
         
         <ScrollView>
-            {/* {items} */}
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
         </ScrollView>
     </View>
 };
