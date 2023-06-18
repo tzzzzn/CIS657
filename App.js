@@ -26,7 +26,7 @@ export default function App() {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      {pageNo==0?<Initial callback={setValues}/>:<MainPage />}
+      {pageNo==0?<Initial callback={setValues}/>:<MainPage props={userInfo} callback={setValues}/>}
     </KeyboardAvoidingView>
   );
 }
