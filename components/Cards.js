@@ -2,12 +2,13 @@ import React from "react";
 import { ScrollView, View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 
 const image = require("../assets/pic.jpg")
-const Cards = (props, callback) => {
+const Cards = (props) => {
+    console.log(props);
     return <View style={styles.view1}>
         <View style={styles.view2}>
             <View>
-                <Text style={styles.text1}>Name of the Club</Text>
-                <Text>Location</Text>
+                <Text style={styles.text1}>Name of the Club : {props.name}</Text>
+                <Text style={styles.text1}>Location : {props.location}</Text>
             </View>
             <TouchableOpacity style={styles.Join}>
                 <Text  style={{color:'white', 'fontWeight':'bold'}}>Join</Text>
@@ -15,7 +16,7 @@ const Cards = (props, callback) => {
         </View>
         <View>
             <Text>Description</Text>
-            <Text>THis sis tkdng akfn asdkfn lasdfasdfnkjdfn</Text>
+            <Text>{props.description}</Text>
         </View>
     </View>
 };

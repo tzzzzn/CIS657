@@ -24,6 +24,9 @@ const NewCard = (callback) => {
             return callback.fun(false);
         }
     };
+    const cancelclub=()=>{
+        return callback.fun(false);
+    };
 
     return <View style={styles.topview}>
         <View><Text>Club Name</Text></View>
@@ -33,7 +36,7 @@ const NewCard = (callback) => {
         <View><Text>Description</Text></View>
         <View><TextInput placeholder="Enter Description" onChangeText={(vals)=>updateClubInfo({'description':vals})}/></View>
         <View style={styles.lastview}>
-            <TouchableOpacity style={[styles.buttons,styles.cancel]}>
+            <TouchableOpacity style={[styles.buttons,styles.cancel]} onPress={cancelclub}>
                 <Text style={styles.cancel}>Cancel</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.buttons,styles.add]} onPress={addclub}>

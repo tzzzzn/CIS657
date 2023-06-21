@@ -1,4 +1,4 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, Text, View, Platform } from 'react-native';
 import { useState, React } from 'react';
 
 import Initial from './screens/Initial';
@@ -21,11 +21,8 @@ export default function App() {
     }
   }
 
-  // console.log(pageNo);
-  // console.log(userInfo);
-
   return (
-    <KeyboardAvoidingView style={styles.container}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
       {pageNo==0?<Initial callback={setValues}/>:<MainPage props={userInfo} callback={setValues}/>}
     </KeyboardAvoidingView>
   );

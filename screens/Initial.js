@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, View, StyleSheet, Button, Image, ImageBackground, ActivityIndicator, StatusBar, TouchableOpacity, Text } from "react-native";
+import { TextInput, Platform, KeyboardAvoidingView, View, StyleSheet, Button, Image, ImageBackground, ActivityIndicator, StatusBar, TouchableOpacity, Text } from "react-native";
 
 import { initdb, newUser, readData } from "../firebase";
 
@@ -18,6 +18,7 @@ const Initial = (props)=>{
         fullName:'',
         mobile:''
     });
+    const [loginIssue, setLoginIssue] = useState(false);
 
     //Updating Variables
     const UpdateUserInfo = (vals) =>{
@@ -50,8 +51,13 @@ const Initial = (props)=>{
             if(k){
                 return props.callback(1,{username:userInfo.username,fullName:fName});
             }
+            else{
+                UpdateUserInfo({username:'',
+                password:''});
+                setLoginIssue(true);
+                return;
+            }
         })
-        
     };
     const registerUser = async () => {
         let k=false;
@@ -105,6 +111,7 @@ const Initial = (props)=>{
     }, []);
 
     return <ImageBackground style={styles.img} source={image}>
+   
         <StatusBar barStyle="light-content" />
         <View style={{alignItems:'center'}}>
             <Image source={require('../assets/pic1.jpg')}/>
@@ -114,7 +121,8 @@ const Initial = (props)=>{
                 <Text style={[styles.buttonText,styles.textb]}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button,styles.signup]} onPress={()=>setPageNo(2)}>
-                <Text style={[styles.buttonText,styles.textb]}>Signup</Text></TouchableOpacity>
+                <Text style={[styles.buttonText,styles.textb]}>Signup</Text>
+            </TouchableOpacity>
             </View>:(pageNo==1?
             <View>
                 <TextInput style={styles.input} placeholder="User Name" onChangeText={(val)=>UpdateUserInfo({'username':val})} value={userInfo.username}/>
@@ -122,6 +130,12 @@ const Initial = (props)=>{
                 <TouchableOpacity style={[styles.button,styles.login]} onPress={()=> checkValidUser()}>
                     <Text style={[styles.buttonText,styles.textb]}>Login</Text>
                 </TouchableOpacity>
+                {loginIssue?<View>
+                    <Text style={{color:'red'}}>Check username and password</Text>
+                    <TouchableOpacity style={[styles.button,styles.signup]} onPress={()=>setPageNo(2)}>
+                        <Text style={[styles.buttonText,styles.textb]}>Signup</Text>
+                    </TouchableOpacity>
+                </View>:null}
             </View> 
             :
             <View>
@@ -132,13 +146,16 @@ const Initial = (props)=>{
                 <TouchableOpacity style={[styles.button,styles.signup]} onPress={registerUser}>
                     <Text style={[styles.buttonText,styles.textb]}>Signup</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={[styles.button,styles.login]} onPress={()=>setPageNo(1)}>
+                    <Text style={[styles.buttonText,styles.textb]}>Back to Login</Text>
+                </TouchableOpacity>
             </View>)
             }
         </View>
         {/* <ActivityIndicator animating={true} color="white" size="large" />  use this for while login and signup*/}
         
         {/* <MainPage/> */}
-        
+    
     </ImageBackground>
 }
 

@@ -3,18 +3,44 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList} from "r
 
 import Cards from "../components/Cards";
 import NewCard from "../components/NewCard";
-import { readClubData } from "../firebase";
+import { initdb, readClubData } from "../firebase";
 
 const MainPage = (props) => {
     console.log(props);
     const [editable, setEditable] = useState(false);
+    const [items,setItems]=useState([]);
 
     const callback=(vals)=>{
         setEditable(vals);
+        clubData();
     }
 
-    // const [items,setItems]=useState([]);
-    // var l = []
+    const clubData=async ()=>{
+        // console.log(userInfo);
+        await readClubData((data)=>{
+            // console.log(data);
+            var j= [];
+            // var k = false;
+            // var fName = "";
+            for(key in data){
+                j.push([data[key].clubName,data[key].description,data[key].location]);
+                // console.log('j',j);
+            }
+            if(j.length){
+                setItems(j);
+                // console.log(items);
+            }
+        })
+    };
+    useEffect(() => {
+        try {
+            initdb();
+            clubData();
+        } catch (err) {
+          console.log(err);
+        }
+    }, []);
+    
     // const fun = async() => {
     //     await readClubData((data)=>{
     //         for(const key in data){
@@ -24,7 +50,7 @@ const MainPage = (props) => {
     //         }
     //     });
     // };
-    // fun();
+    // 
     // console.log(items);
 
     return <View style={Styles.view}>
@@ -42,14 +68,21 @@ const MainPage = (props) => {
             <Text style={Styles.text}>+</Text> 
         </TouchableOpacity>: <NewCard fun={callback}/>
         }
-        
         <ScrollView>
-            <Cards />
-            <Cards />
-            <Cards />
-            <Cards />
-            <Cards />
+            {items.map((item, index) => (
+                <View key={index}>
+                <Cards name={item[0]} description={item[1]} location={item[2]}/>
+                </View>
+            ))}
         </ScrollView>
+        
+        {/* <ScrollView>
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+            <Cards />
+        </ScrollView> */}
     </View>
 };
 

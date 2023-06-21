@@ -53,7 +53,7 @@ export async function readData(callback) {
       // Read the data from the database asynchronously
       const snapshot =await get(reference);
       const data = snapshot.val();
-    //   console.log("Received data:", data);
+      // console.log("Received data:", data);
       callback(data);
       // Do something with the retrieved data
     } catch (error) {
@@ -66,10 +66,11 @@ export async function readClubData(callback) {
       // Get the database instance
       const db = getDatabase();
       const reference = ref(db, "club/");
+
       // Read the data from the database asynchronously
       const snapshot = await get(reference);
       const data = snapshot.val();
-    //   console.log("Received data:", data);
+      // console.log("Received data:", data);
       callback(data);
       // Do something with the retrieved data
     } catch (error) {
