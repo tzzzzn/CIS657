@@ -16,7 +16,7 @@ const NewCard = (callback) => {
             ...vals
         });
     };
-    console.log('are we here');
+    // console.log('are we here');
     const addclub=()=>{
         if(clubInfo.clubName!=="" && clubInfo.location!=="" && clubInfo.description!=="")
         {

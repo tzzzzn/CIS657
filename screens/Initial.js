@@ -36,7 +36,7 @@ const Initial = (props)=>{
 
     //Functions
     const checkValidUser=async ()=>{
-        console.log(userInfo);
+        // console.log(userInfo);
         await readData((data)=>{
             var k = false;
             var fName = "";
@@ -68,7 +68,7 @@ const Initial = (props)=>{
                 for(key in data){
                     if(data[key].username===newUserInfo.username){
                         k=true;
-                        console.log(data[key].username);
+                        // console.log(data[key].username);
                         break;
                     }
                 }

@@ -19,8 +19,6 @@ export function initdb(){
 }
 
 export function newUser(data) {
-  console.log(data);
-  console.log('we are');
   const db = getDatabase();
   const reference = ref(db, "user/");
   const newRef = push(reference);
@@ -32,8 +30,6 @@ export function newUser(data) {
 };
 
 export function newClub(data) {
-    console.log(data);
-    console.log('we are');
     const db = getDatabase();
     const reference = ref(db, "club/");
     const newRef = push(reference);
@@ -44,6 +40,35 @@ export function newClub(data) {
     });
 };
 
+export function newJoiners(data) {
+  // console.log(data);
+  const db = getDatabase();
+  const reference = ref(db, "join/");
+  const newRef = push(reference);
+  set(newRef, data).then(() => {
+    console.log("Data written successfully!");
+  }).catch((error) => {
+    console.log("Error writing data:", error);
+  });
+};
+
+export async function readJoinersData(callback) {
+  try {
+    // Get the database instance
+    const db = getDatabase();
+    const reference = ref(db, "join/");
+
+    // Read the data from the database asynchronously
+    const snapshot =await get(reference);
+    const data = snapshot.val();
+    // console.log("Received data:", data);
+    callback(data);
+    // Do something with the retrieved data
+  } catch (error) {
+    console.error("Error reading data:", error);
+  }
+};
+
 export async function readData(callback) {
     try {
       // Get the database instance
@@ -51,7 +76,7 @@ export async function readData(callback) {
       const reference = ref(db, "user/");
   
       // Read the data from the database asynchronously
-      const snapshot =await get(reference);
+      const snapshot = await get(reference);
       const data = snapshot.val();
       // console.log("Received data:", data);
       callback(data);
@@ -77,3 +102,6 @@ export async function readClubData(callback) {
       console.error("Error reading data:", error);
     }
 };
+
+
+
